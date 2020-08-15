@@ -1,0 +1,2817 @@
+/*
+ * <h1> Technology Project</h1> 
+ * <h1>Networking & Virtualization</h1>
+ * <h1> Summer 2020 </h1> 
+ *
+ * The Dublin Pharmaceutical Limited project
+ * implements and illustrates
+ * several topics and concepts based on
+ * Networking and Virtualization topics.
+ * 
+ * Note: following configuration was implemented 
+ * in the project step by step on Packet Tracer ver7.3.0
+ *
+ * @author  Oswaldo Camargo Vidals(2019288)
+ * @version 1.0
+ * @since   15-08-20
+ * CCT College Dublin
+ */
+
+
+********************(Router0)********************
+
+Router 2811
+
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+
+Router(config-subif)#interface f0/0.5
+Router(config-subif)#encapsulation dot1q 5
+Router(config-subif)#ip address 192.168.5.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config)#interface f0/0.10
+Router(config-subif)#encapsulation dot1q 10
+Router(config-subif)#ip address 192.168.10.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config-subif)#interface f0/0.20
+Router(config-subif)#encapsulation dot1q 20
+Router(config-subif)#ip address 192.168.20.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config-subif)#interface f0/0.30
+Router(config-subif)#encapsulation dot1q 30
+Router(config-subif)#ip address 192.168.30.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config-subif)#interface f0/0.40
+Router(config-subif)#encapsulation dot1q 40
+Router(config-subif)#ip address 192.168.40.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config-subif)#interface f0/0.50
+Router(config-subif)#encapsulation dot1q 50
+Router(config-subif)#ip address 192.168.50.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config-subif)#interface f0/0.60
+Router(config-subif)#encapsulation dot1q 60
+Router(config-subif)#ip address 192.168.60.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config-subif)#interface f0/0.100
+Router(config-subif)#encapsulation dot1q 100
+Router(config-subif)#ip address 192.168.100.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config-subif)#interface f0/0.101
+Router(config-subif)#encapsulation dot1q 101
+Router(config-subif)#ip address 192.168.101.1 255.255.255.0
+Router(config-subif)#ip nat inside
+
+Router(config)#interface f0/0
+Router(config-if)#no shutdown
+
+//////////////////////NOT IMPLEMENTED////////////////////////
+
+#ip dhcp excluded-address 192.168.5.1
+#Router(config)#ip dhcp pool VOICE
+#Router(dhcp-config)#network 192.168.5.0 255.255.255.0
+#Router(dhcp-config)#default-router 192.168.5.1
+#Router(dhcp-config)#dns-server 192.168.101.3
+#Router(dhcp-config)#option 150 ip 192.168.101.6
+#Router(dhcp-config)#exit
+
+////////////////////////////////////////////////////////////
+
+
+***Helper-Address
+(Server DHCP 192.168.101.2)
+
+Router(config-subif)#interface f0/0.5
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+Router(config-subif)#interface f0/0.10
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+Router(config-subif)#interface f0/0.20
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+Router(config-subif)#interface f0/0.30
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+Router(config-subif)#interface f0/0.40
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+Router(config-subif)#interface f0/0.50
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+Router(config-subif)#interface f0/0.60
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+Router(config-subif)#interface f0/0.100
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+Router(config-subif)#interface f0/0.101
+Router(config-subif)#ip helper-address 192.168.101.2
+Router(config-subif)#exit
+
+
+Telephony SetUp 
+
+Router(config)#telephony-service
+Router(config-telephony)#max-dn 140
+Router(config-telephony)#max-ephones 40
+Router(config-telephony)#ip source-address 192.168.5.1 port 2000
+Router(config-telephony)#auto assign 4 to 6
+Router(config-telephony)#auto assign 1 to 5
+
+Router(config-telephony)#exit
+
+-ephones SetUp
+Router(config)#ephone-dn 1
+Router(config-ephone-dn)#number 5001
+Router(config-ephone-dn)#exit
+
+Router(config)#ephone-dn 2
+Router(config-ephone-dn)#number 5002
+Router(config-ephone-dn)#exit
+
+Router(config)#ephone-dn 3
+Router(config-ephone-dn)#number 5003
+Router(config-ephone-dn)#exit
+
+Router(config)#ephone-dn 4
+Router(config-ephone-dn)#number 5004
+Router(config-ephone-dn)#exit
+
+Router(config)#ephone-dn 5
+Router(config-ephone-dn)#number 5005
+Router(config-ephone-dn)#exit
+
+//////////////////////////////////////////////////////////////
+
+
+//////////////NOT IMPLEMENTED, ON TESTING/////////////////////
+*Router Serial port
+
+Router(config)#interface s0/1/1
+Router(config-if)#ip address 203.0.113.2 255.255.255.240
+Router(config-if)#clock rate 128000
+Router(config-if)#ip nat outside
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial0/1/1, changed state to down
+Router(config-if)#interface s0/1/0
+Router(config-if)#exit
+Router(config)#interface s0/1/0
+Router(config-if)#ip address 203.0.113.17 255.255.255.252
+Router(config-if)#clock rate 128000
+Router(config-if)#ip nat inside
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial0/1/0, changed state to down
+Router(config-if)#exit
+Router(config)#interface s0/0/0
+Router(config-if)#ip address 203.0.113.22 255.255.255.252
+Router(config-if)#ip nat inside
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial0/0/0, changed state to down
+Router(config-if)#interface s0/0/1
+Router(config-if)#exit
+Router(config)#interface s0/0/1
+Router(config-if)#ip address 203.0.113.26 255.255.255.252
+Router(config-if)#ip nat inside
+Router(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial0/0/1, changed state to down
+Router(config-if)#exit
+Router(config)# 
+///////////////////////////////////////////////////////////
+
+
+
+
+********************(Multilayer1)********************
+
+***Multilayer Switch0 (Multilayer1)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname Multilayer1
+
+***Security, Enable Restricted Message.
+
+Multilayer1(config)#banner motd "STOP! Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+Multilayer1(config)#enable secret cct
+
+***Security, Console
+
+Multilayer1(config)#line console 0
+Multilayer1(config-line)#password cct
+Multilayer1(config-line)#login
+Multilayer1(config-line)#loggin synchronous
+Multilayer1(config-line)#exec-timeout 20
+Multilayer1(config-line)#exit
+Multilayer1(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+Multilayer1(config)#line vty 0 4
+Multilayer1(config-line)#password cct
+Multilayer1(config-line)#login
+Multilayer1(config-line)#loggin synchronous
+Multilayer1(config-line)#exec-timeout 20
+Multilayer1(config-line)#exit
+Multilayer1(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+Multilayer1(config)#vtp mode server
+	Device mode already VTP SERVER.
+Multilayer1(config)#vtp domain dpl.ie
+	Changing VTP domain name from NULL to dpl.ie
+
+***VLAN's Configuration (VLAN 5, 10, 20, 30, 40, 50, 60, 100, 101)
+
+Multilayer1(config)#vlan 5
+Multilayer1(config-vlan)#name VOICE
+Multilayer1(config-vlan)#exit
+
+Multilayer1(config)#vlan 10
+Multilayer1(config-vlan)#name S&M
+Multilayer1(config-vlan)#exit
+
+Multilayer1(config)#vlan 20
+Multilayer1(config-vlan)#name R&D1
+Multilayer1(config-vlan)#exit
+Multilayer1(config)#vlan 30
+Multilayer1(config-vlan)#name R&D2
+Multilayer1(config-vlan)#exit
+
+Multilayer1(config)#vlan 40
+Multilayer1(config-vlan)#name MANUFAC1
+Multilayer1(config-vlan)#exit
+Multilayer1(config)#vlan 50
+Multilayer1(config-vlan)#name MANUFAC2
+Multilayer1(config-vlan)#exit
+Multilayer1(config)#vlan 60
+Multilayer1(config-vlan)#name MANUFAC3
+Multilayer1(config-vlan)#exit
+
+Multilayer1(config)#vlan 100
+Multilayer1(config-vlan)#name ADMIN
+Multilayer1(config-vlan)#exit
+Multilayer1(config)#vlan 101
+Multilayer1(config-vlan)#name SERVERS
+Multilayer1(config-vlan)#exit
+
+(Multilayer1#show Vlan)
+
+***VLAN's Interface Router
+
+Multilayer1(config)#interface vlan 5
+Multilayer1(config-if)#ip address 192.168.5.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 10
+Multilayer1(config-if)#ip address 192.168.10.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 20
+Multilayer1(config-if)#ip address 192.168.20.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 30
+Multilayer1(config-if)#ip address 192.168.30.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 40
+Multilayer1(config-if)#ip address 192.168.40.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 50
+Multilayer1(config-if)#ip address 192.168.50.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 60
+Multilayer1(config-if)#ip address 192.168.60.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 100
+Multilayer1(config-if)#ip address 192.168.100.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 101
+Multilayer1(config-if)#ip address 192.168.101.1 255.255.255.0
+Multilayer1(config-if)#exit
+
+***Access, GigabitEthernet ports
+
+(PC-ADMIN port g1/0/8)
+Multilayer1(config)#interface g1/0/8
+Multilayer1(config-if)#switchport mode access
+Multilayer1(config-if)#switchport access vlan 100
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface range g1/0/8
+Multilayer1(config-if-range)#switchport mode access
+Multilayer1(config-if-range)#switchport voice vlan 5
+Multilayer1(config-if-range)#exit
+
+
+(SERVERS ports 9,10,11,12,13,14)
+Multilayer1(config)#interface range g1/0/9-14
+Multilayer1(config-if-range)#switchport mode access
+Multilayer1(config-if-range)#switchport access vlan 101
+Multilayer1(config-if-range)#exit
+
+Multilayer1(config)#interface range g1/0/9-14
+Multilayer1(config-if-range)#switchport mode access
+Multilayer1(config-if-range)#switchport voice vlan 5
+Multilayer1(config-if-range)#exit
+
+***Access, Trunk ports
+
+Multilayer1(config)#interface g1/0/1
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/2
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/3
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/4
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/5
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/6
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/7
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+------
+Multilayer1(config)#interface g1/0/15
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/16
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/17
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/18
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/19
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface g1/0/20
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+***Trunk ports, Router 2811
+
+Multilayer1(config)#interface g1/0/24
+Multilayer1(config-if)#switchport trunk encapsulation dot1q
+Multilayer1(config-if)#switchport mode trunk
+Multilayer1(config-if)#switchport trunk allowed vlan all
+Multilayer1(config-if)#exit
+
+////////// Spanning //////////
+
+Multilayer1(config)#interface range g1/0/1-7
+Multilayer1(config-if-range)#channel-group 1 mode on
+Multilayer1(config-if-range)#
+Creating a port-channel interface Port-channel 1
+
+%LINK-5-CHANGED: Interface Port-channel1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel1, changed state to up
+
+Multilayer1(config-if-range)#interface port-channel 1
+Multilayer1(config-if)#switch mode trunk
+Multilayer1(config-if)#exit
+Multilayer1(config)#spanning-tree vlan 10,30,50,100 root primary
+
+***Helper-Address
+(Server DHCP 192.168.101.2)
+
+Multilayer1(config)#interface vlan 5
+Multilayer1(config-if)#ip helper-address 192.168.101.2
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 10
+Multilayer1(config-if)#ip helper-address 192.168.101.2
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 20
+Multilayer1(config-if)#ip helper-address 192.168.101.2
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 30
+Multilayer1(config-if)#ip helper-address 192.168.101.2
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 40
+Multilayer1(config-if)#ip helper-address 192.168.101.2
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 50
+Multilayer1(config-if)#ip helper-address 192.168.101.2
+Multilayer1(config-if)#exit
+
+Multilayer1(config)#interface vlan 60
+Multilayer1(config-if)#ip helper-address 192.168.101.2
+Multilayer1(config-if)#exit
+
+***Active Router Layer 3
+
+Multilayer1(config)#ip routing	
+Multilayer1(config)#exit
+
+***Save config NVRAM
+
+Multilayer1#copy running-config startup-config
+
+
+********************(Multilayer2)********************
+
+***Multilayer (Multilayer2)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname Multilayer2
+
+***Security, Enable Restricted Message.
+
+Multilayer2(config)#banner motd "STOP! Multilayer2 Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+Multilayer2(config)#enable secret cct
+
+***Security, Console
+
+Multilayer2(config)#line console 0
+Multilayer2(config-line)#password cct
+Multilayer2(config-line)#login
+Multilayer2(config-line)#loggin synchronous
+Multilayer2(config-line)#exec-timeout 20
+Multilayer2(config-line)#exit
+Multilayer2(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+Multilayer2(config)#line vty 0 4
+Multilayer2(config-line)#password cct
+Multilayer2(config-line)#login
+Multilayer2(config-line)#loggin synchronous
+Multilayer2(config-line)#exec-timeout 20
+Multilayer2(config-line)#exit
+Multilayer2(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+Multilayer2(config)#vtp mode client
+	Setting device to VTP CLIENT.
+Multilayer2(config)#vtp domain dpl.ie
+	Changing VTP domain name from NULL to dpl.ie
+
+***VLAN's Configuration (VLAN 5, 10, 20, 30, 40, 50, 60, 100, 101)
+
+(Multilayer2#show Vlan)
+
+***VLAN's Interface Router
+
+Multilayer2(config)#interface vlan 5
+Multilayer2(config-if)#ip address 192.168.5.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 10
+Multilayer2(config-if)#ip address 192.168.10.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 20
+Multilayer2(config-if)#ip address 192.168.20.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 30
+Multilayer2(config-if)#ip address 192.168.30.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 40
+Multilayer2(config-if)#ip address 192.168.40.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 50
+Multilayer2(config-if)#ip address 192.168.50.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 60
+Multilayer2(config-if)#ip address 192.168.60.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 100
+Multilayer2(config-if)#ip address 192.168.100.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 101
+Multilayer2(config-if)#ip address 192.168.101.1 255.255.255.0
+Multilayer2(config-if)#exit
+
+***Access, GigabitEthernet ports
+
+###(PC-ADMIN port g1/0/8)
+###Multilayer1(config)#interface g1/0/8
+###Multilayer1(config-if)#switchport mode access
+###Multilayer1(config-if)#switchport access vlan 100
+###Multilayer1(config-if)#exit
+
+###(SERVERS ports 9,10,11,12,13,14)
+###Multilayer1(config)#interface range g1/0/9-14
+###Multilayer1(config-if-range)#switchport mode access
+###Multilayer1(config-if-range)#switchport access vlan 101
+###Multilayer1(config-if-range)#exit
+
+***Trunk ports
+
+Multilayer2(config)#interface g1/0/1
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/2
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/3
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/4
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/5
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/6
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/7
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+------
+Multilayer2(config)#interface g1/0/15
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/16
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/17
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/18
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/19
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface g1/0/20
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+***Trunk ports, Router 2811
+
+Multilayer2(config)#interface g1/0/24
+Multilayer2(config-if)#switchport trunk encapsulation dot1q
+Multilayer2(config-if)#switchport mode trunk
+Multilayer2(config-if)#switchport trunk allowed vlan all
+Multilayer2(config-if)#exit
+
+////////// Spanning //////////
+
+Multilayer2(config)#interface range g1/0/1-7
+Multilayer2(config-if-range)#channel-group 1 mode on
+Multilayer2(config-if-range)#
+Creating a port-channel interface Port-channel 1
+
+%LINK-5-CHANGED: Interface Port-channel1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel1, changed state to up
+
+Multilayer2(config-if-range)#interface port-channel 1
+Multilayer2(config-if)#switch mode trunk
+Multilayer2(config-if)#exit
+Multilayer2(config)#spanning-tree vlan 5,20,40,60,101 root primary
+
+***Helper-Address
+(Server DHCP 192.168.101.2)
+
+Multilayer2(config)#interface vlan 5
+Multilayer2(config-if)#ip helper-address 192.168.101.2
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 10
+Multilayer2(config-if)#ip helper-address 192.168.101.2
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 20
+Multilayer2(config-if)#ip helper-address 192.168.101.2
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 30
+Multilayer2(config-if)#ip helper-address 192.168.101.2
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 40
+Multilayer2(config-if)#ip helper-address 192.168.101.2
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 50
+Multilayer2(config-if)#ip helper-address 192.168.101.2
+Multilayer2(config-if)#exit
+
+Multilayer2(config)#interface vlan 60
+Multilayer2(config-if)#ip helper-address 192.168.101.2
+Multilayer2(config-if)#exit
+
+***Active Layer 3
+
+Multilayer2(config)#ip routing	
+Multilayer2(config)#exit
+
+***Save config NVRAM
+
+Multilayer2#copy running-config startup-config
+
+********************(sw1S&M)********************
+
+***Sales & Marketing switches
+
+***Switch layer 2   (sw1S&M)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw1S&M
+
+***Security, Enable Restricted Message.
+
+sw1S&M(config)#banner motd "STOP! sw1S&M Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw1S&M(config)#enable secret cct1
+
+***Security, Console
+
+sw1S&M(config)#line console 0
+sw1S&M(config-line)#password cct1
+sw1S&M(config-line)#login
+sw1S&M(config-line)#loggin synchronous
+sw1S&M(config-line)#exec-timeout 20
+sw1S&M(config-line)#exit
+sw1S&M(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw1S&M(config)#line vty 0 4
+sw1S&M(config-line)#password cct1
+sw1S&M(config-line)#login
+sw1S&M(config-line)#loggin synchronous
+sw1S&M(config-line)#exec-timeout 20
+sw1S&M(config-line)#exit
+sw1S&M(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw1S&M(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw1S&M(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw1S&M(config)#interface range f0/4-20
+sw1S&M(config-if-range)#switchport mode access
+sw1S&M(config-if-range)#switchport access vlan 10
+sw1S&M(config-if-range)#exit
+
+sw1S&M(config)#interface range f0/4-20
+sw1S&M(config-if-range)#switchport voice vlan 5
+sw1S&M(config-if-range)#exit
+
+***Port Security
+
+sw1S&M(config)#interface range f0/4-20
+sw1S&M(config-if-range)#switchport mode access	
+sw1S&M(config-if-range)#switchport port-security
+sw1S&M(config-if-range)#switchport port-security mac-address stick
+sw1S&M(config-if-range)#switchport port-security maximum 10
+sw1S&M(config-if-range)#switchport port-security violation shutdown
+sw1S&M(config-if-range)#exit
+
+***Trunk port
+
+sw1S&M(config)#interface f0/3
+sw1S&M(config-if)#switchport mode trunk
+sw1S&M(config-if)#switchport trunk allowed vlan all
+sw1S&M(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw1S&M(config)#interface vlan 100
+sw1S&M(config-if)#ip address 192.168.100.2 255.255.255.0
+sw1S&M(config-if)#ip default-gateway 192.168.100.1
+sw1S&M(config)#interface vlan 100
+sw1S&M(config-if)#no shutdown
+sw1S&M(config-if)#exit
+sw1S&M(config)#exit
+
+***Save config NVRAM
+
+sw1S&M#copy running-config startup-config
+
+********************(sw2TS&M)********************
+
+***Switch layer 2   (sw2TS&M) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2TS&M
+
+***Security, Enable Restricted Message.
+
+sw1S&M(config)#banner motd "STOP! sw2TS&M Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw2TS&M(config)#enable secret cct2
+
+***Security, Console
+
+sw2TS&M(config)#line console 0
+sw2TS&M(config-line)#password cct2
+sw2TS&M(config-line)#login
+sw2TS&M(config-line)#loggin synchronous
+sw2TS&M(config-line)#exec-timeout 20
+sw2TS&M(config-line)#exit
+sw2TS&M(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw2TS&M(config)#line vty 0 4
+sw2TS&M(config-line)#password cct2
+sw2TS&M(config-line)#login
+sw2TS&M(config-line)#loggin synchronous
+sw2TS&M(config-line)#exec-timeout 20
+sw2TS&M(config-line)#exit
+sw2TS&M(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw2TS&M(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw2TS&M(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw2TS&M(config)#interface range f0/4-20
+sw2TS&M(config-if-range)#switchport mode access
+sw2TS&M(config-if-range)#switchport access vlan 10
+sw2TS&M(config-if-range)#exit
+
+sw2TS&M(config)#interface range f0/4-20
+sw2TS&M(config-if-range)#switchport voice vlan 5
+sw2TS&M(config-if-range)#exit
+
+***Port Security
+
+sw2TS&M(config)#interface range f0/4-20
+sw2TS&M(config-if-range)#switchport mode access	
+sw2TS&M(config-if-range)#switchport port-security
+sw2TS&M(config-if-range)#switchport port-security mac-address stick
+sw2TS&M(config-if-range)#switchport port-security maximum 5
+sw2TS&M(config-if-range)#switchport port-security violation shutdown
+sw2TS&M(config-if-range)#exit
+
+***Trunk port
+
+sw2TS&M(config)#interface f0/2
+sw2TS&M(config-if)#switchport mode trunk
+sw2TS&M(config-if)#switchport trunk allowed vlan all
+sw2TS&M(config-if)#exit
+
+sw2TS&M(config)#interface f0/3
+sw2TS&M(config-if)#switchport mode trunk
+sw2TS&M(config-if)#switchport trunk allowed vlan all
+sw2TS&M(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw2TS&M(config)#interface vlan 100
+sw2TS&M(config-if)#ip address 192.168.100.3 255.255.255.0
+sw2TS&M(config-if)#ip default-gateway 192.168.100.1
+sw2TS&M(config)#interface vlan 100
+sw2TS&M(config-if)#no shutdown
+sw2TS&M(config-if)#exit
+sw2TS&M(config)#exit
+
+***Save config NVRAM
+
+sw2TS&M#copy running-config startup-config
+
+********************(sw3TS&M)********************
+
+***Switch layer 2   (sw3TS&M) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw3TS&M
+
+***Security, Enable Restricted Message.
+
+sw3TS&M(config)#banner motd "STOP! sw3TS&M Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw3TS&M(config)#enable secret cct2
+
+***Security, Console
+
+sw3TS&M(config)#line console 0
+sw3TS&M(config-line)#password cct2
+sw3TS&M(config-line)#login
+sw3TS&M(config-line)#loggin synchronous
+sw3TS&M(config-line)#exec-timeout 20
+sw3TS&M(config-line)#exit
+sw3TS&M(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw3TS&M(config)#line vty 0 4
+sw3TS&M(config-line)#password cct2
+sw3TS&M(config-line)#login
+sw3TS&M(config-line)#loggin synchronous
+sw3TS&M(config-line)#exec-timeout 20
+sw3TS&M(config-line)#exit
+sw3TS&M(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw3TS&M(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw3TS&M(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw3TS&M(config)#interface range f0/4-20
+sw3TS&M(config-if-range)#switchport mode access
+sw3TS&M(config-if-range)#switchport access vlan 10
+sw3TS&M(config-if-range)#exit
+
+sw3TS&M(config)#interface range f0/4-20
+sw3TS&M(config-if-range)#switchport voice vlan 5
+sw3TS&M(config-if-range)#exit
+
+***Port Security
+
+sw3TS&M(config)#interface range f0/4-20
+sw3TS&M(config-if-range)#switchport mode access	
+sw3TS&M(config-if-range)#switchport port-security
+sw3TS&M(config-if-range)#switchport port-security mac-address stick
+sw3TS&M(config-if-range)#switchport port-security maximum 5
+sw3TS&M(config-if-range)#switchport port-security violation shutdown
+sw3TS&M(config-if-range)#exit
+
+***Trunk port
+
+#sw3TS&M(config)#interface f0/2
+#sw3TS&M(config-if)#switchport mode trunk
+#sw3TS&M(config-if)#switchport trunk allowed vlan all
+#sw3TS&M(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw3TS&M(config)#interface vlan 100
+sw3TS&M(config-if)#ip address 192.168.100.4 255.255.255.0
+sw3TS&M(config-if)#ip default-gateway 192.168.100.1
+sw3TS&M(config)#interface vlan 100
+sw3TS&M(config-if)#no shutdown
+sw3TS&M(config-if)#exit
+sw3TS&M(config)#exit
+
+***Save config NVRAM
+
+sw3TS&M#copy running-config startup-config
+
+********************(sw4TS&M)********************
+
+***Switch layer 2   (sw4TS&M) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw4TS&M
+
+***Security, Enable Restricted Message.
+
+sw4TS&M(config)#banner motd "STOP! sw4TS&M Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw4TS&M(config)#enable secret cct2
+
+***Security, Console
+
+sw4TS&M(config)#line console 0
+sw4TS&M(config-line)#password cct2
+sw4TS&M(config-line)#login
+sw4TS&M(config-line)#loggin synchronous
+sw4TS&M(config-line)#exec-timeout 20
+sw4TS&M(config-line)#exit
+sw4TS&M(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw4TS&M(config)#line vty 0 4
+sw4TS&M(config-line)#password cct2
+sw4TS&M(config-line)#login
+sw4TS&M(config-line)#loggin synchronous
+sw4TS&M(config-line)#exec-timeout 20
+sw4TS&M(config-line)#exit
+sw4TS&M(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw4TS&M(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw4TS&M(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw4TS&M(config)#interface range f0/4-20
+sw4TS&M(config-if-range)#switchport mode access
+sw4TS&M(config-if-range)#switchport access vlan 10
+sw4TS&M(config-if-range)#exit
+
+sw4TS&M(config)#interface range f0/4-20
+sw4TS&M(config-if-range)#switchport voice vlan 5
+sw4TS&M(config-if-range)#exit
+
+***Port Security
+
+sw4TS&M(config)#interface range f0/4-20
+sw4TS&M(config-if-range)#switchport mode access	
+sw4TS&M(config-if-range)#switchport port-security
+sw4TS&M(config-if-range)#switchport port-security mac-address stick
+sw4TS&M(config-if-range)#switchport port-security maximum 5
+sw4TS&M(config-if-range)#switchport port-security violation shutdown
+sw4TS&M(config-if-range)#exit
+
+***Trunk port
+
+#sw3TS&M(config)#interface f0/2
+#sw3TS&M(config-if)#switchport mode trunk
+#sw3TS&M(config-if)#switchport trunk allowed vlan all
+#sw3TS&M(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw4TS&M(config)#interface vlan 100
+sw4TS&M(config-if)#ip address 192.168.100.5 255.255.255.0
+sw4TS&M(config-if)#ip default-gateway 192.168.100.1
+sw4TS&M(config)#interface vlan 100
+sw4TS&M(config-if)#no shutdown
+sw4TS&M(config-if)#exit
+sw4TS&M(config)#exit
+
+***Save config NVRAM
+
+sw4TS&M#copy running-config startup-config
+
+********************(sw1R&D)********************
+
+***Research & Development switches layer 2
+
+***Switch layer 2   (sw1R&D)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw1R&D
+
+***Security, Enable Restricted Message.
+
+sw1R&D(config)#banner motd "STOP! sw1R&D Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw1R&D(config)#enable secret cct1
+
+***Security, Console
+
+sw1R&D(config)#line console 0
+sw1R&D(config-line)#password cct1
+sw1R&D(config-line)#login
+sw1R&D(config-line)#loggin synchronous
+sw1R&D(config-line)#exec-timeout 20
+sw1R&D(config-line)#exit
+sw1R&D(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw1R&D(config)#line vty 0 4
+sw1R&D(config-line)#password cct1
+sw1R&D(config-line)#login
+sw1R&D(config-line)#loggin synchronous
+sw1R&D(config-line)#exec-timeout 20
+sw1R&D(config-line)#exit
+sw1R&D(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw1R&D(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw1R&D(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw1R&D(config)#interface range f0/4-20
+sw1R&D(config-if-range)#switchport mode access
+sw1R&D(config-if-range)#switchport access vlan 20
+sw1R&D(config-if-range)#exit
+
+sw1R&D(config)#interface range f0/4-20
+sw1R&D(config-if-range)#switchport voice vlan 5
+sw1R&D(config-if-range)#exit
+
+***Port Security
+
+sw1R&D(config)#interface range f0/4-20
+sw1R&D(config-if-range)#switchport mode access	
+sw1R&D(config-if-range)#switchport port-security
+sw1R&D(config-if-range)#switchport port-security mac-address stick
+sw1R&D(config-if-range)#switchport port-security maximum 10
+sw1R&D(config-if-range)#switchport port-security violation shutdown
+sw1R&D(config-if-range)#exit
+
+***Access, Trunk port
+
+sw1R&D(config)#interface f0/3
+sw1R&D(config-if)#switchport mode trunk
+sw1R&D(config-if)#switchport trunk allowed vlan all
+sw1R&D(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw1R&D(config)#interface vlan 100
+sw1R&D(config-if)#ip address 192.168.100.6 255.255.255.0
+sw1R&D(config-if)#ip default-gateway 192.168.100.1
+sw1R&D(config)#interface vlan 100
+sw1R&D(config-if)#no shutdown
+sw1R&D(config-if)#exit
+sw1R&D(config)#exit
+
+***Save config NVRAM
+
+sw1R&D#copy running-config startup-config
+
+********************(sw2TR&D)********************
+
+***Switch layer 2   (sw2TR&D) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2TR&D
+
+***Security, Enable Restricted Message.
+
+sw2TR&D(config)#banner motd "STOP! sw2TR&D Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw2TR&D(config)#enable secret cct2
+
+***Security, Console
+
+sw2TR&D(config)#line console 0
+sw2TR&D(config-line)#password cct2
+sw2TR&D(config-line)#login
+sw2TR&D(config-line)#loggin synchronous
+sw2TR&D(config-line)#exec-timeout 20
+sw2TR&D(config-line)#exit
+sw2TR&D(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw2TR&D(config)#line vty 0 4
+sw2TR&D(config-line)#password cct2
+sw2TR&D(config-line)#login
+sw2TR&D(config-line)#loggin synchronous
+sw2TR&D(config-line)#exec-timeout 20
+sw2TR&D(config-line)#exit
+sw2TR&D(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw2TR&D(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw2TR&D(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw2TR&D(config)#interface range f0/4-20
+sw2TR&D(config-if-range)#switchport mode access
+sw2TR&D(config-if-range)#switchport access vlan 20
+sw2TR&D(config-if-range)#exit
+
+sw2TR&D(config)#interface range f0/4-20
+sw2TR&D(config-if-range)#switchport voice vlan 5
+sw2TR&D(config-if-range)#exit
+
+***Port Security
+
+sw2TR&D(config)#interface range f0/4-20
+sw2TR&D(config-if-range)#switchport mode access	
+sw2TR&D(config-if-range)#switchport port-security
+sw2TR&D(config-if-range)#switchport port-security mac-address stick
+sw2TR&D(config-if-range)#switchport port-security maximum 5
+sw2TR&D(config-if-range)#switchport port-security violation shutdown
+sw2TR&D(config-if-range)#exit
+
+***Trunk port
+
+sw2TR&D(config)#interface f0/2
+sw2TR&D(config-if)#switchport mode trunk
+sw2TR&D(config-if)#switchport trunk allowed vlan all
+sw2TR&D(config-if)#exit
+
+sw2TR&D(config)#interface f0/3
+sw2TR&D(config-if)#switchport mode trunk
+sw2TR&D(config-if)#switchport trunk allowed vlan all
+sw2TR&D(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw2TR&D(config)#interface vlan 100
+sw2TR&D(config-if)#ip address 192.168.100.8 255.255.255.0
+sw2TR&D(config-if)#ip default-gateway 192.168.100.1
+sw2TR&D(config)#interface vlan 100
+sw2TR&D(config-if)#no shutdown
+sw2TR&D(config-if)#exit
+sw2TR&D(config)#exit
+
+***Save config NVRAM
+
+sw2TR&D#copy running-config startup-config
+
+********************(sw3TR&D)********************
+
+***Switch layer 2   (sw3TR&D) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw3TR&D
+
+***Security, Enable Restricted Message.
+
+sw3TR&D(config)#banner motd "STOP! sw3TR&D Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw3TR&D(config)#enable secret cct2
+
+***Security, Console
+
+sw3TR&D(config)#line console 0
+sw3TR&D(config-line)#password cct2
+sw3TR&D(config-line)#login
+sw3TR&D(config-line)#loggin synchronous
+sw3TR&D(config-line)#exec-timeout 20
+sw3TR&D(config-line)#exit
+sw3TR&D(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw3TR&D(config)#line vty 0 4
+sw3TR&D(config-line)#password cct2
+sw3TR&D(config-line)#login
+sw3TR&D(config-line)#loggin synchronous
+sw3TR&D(config-line)#exec-timeout 20
+sw3TR&D(config-line)#exit
+sw3TR&D(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw3TR&D(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw3TR&D(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw3TR&D(config)#interface range f0/4-20
+sw3TR&D(config-if-range)#switchport mode access
+sw3TR&D(config-if-range)#switchport access vlan 20
+sw3TR&D(config-if-range)#exit
+
+sw3TR&D(config)#interface range f0/4-20
+sw3TR&D(config-if-range)#switchport voice vlan 5
+sw3TR&D(config-if-range)#exit
+
+***Port Security
+
+sw3TR&D(config)#interface range f0/4-20
+sw3TR&D(config-if-range)#switchport mode access	
+sw3TR&D(config-if-range)#switchport port-security
+sw3TR&D(config-if-range)#switchport port-security mac-address stick
+sw3TR&D(config-if-range)#switchport port-security maximum 5
+sw3TR&D(config-if-range)#switchport port-security violation shutdown
+sw3TR&D(config-if-range)#exit
+
+***Trunk port
+
+#sw3TR&D(config)#interface f0/2
+#sw3TR&D(config-if)#switchport mode trunk
+#sw3TR&D(config-if)#switchport trunk allowed vlan all
+#sw3TR&D(config-if)#exit
+
+****Remote access VLAN ADMIN
+
+sw3TR&D(config)#interface vlan 100
+sw3TR&D(config-if)#ip address 192.168.100.9 255.255.255.0
+sw3TR&D(config-if)#ip default-gateway 192.168.100.1
+sw3TR&D(config)#interface vlan 100
+sw3TR&D(config-if)#no shutdown
+sw3TR&D(config-if)#exit
+sw3TR&D(config)#exit
+
+***Save config NVRAM
+
+sw3TR&D#copy running-config startup-config
+
+********************(sw4TR&D)********************
+
+***Switch layer 2   (sw4TR&D) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw4TR&D
+
+***Security, Enable Restricted Message.
+
+sw4TR&D(config)#banner motd "STOP! sw4TR&D Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw4TR&D(config)#enable secret cct2
+
+***Security, Console
+
+sw4TR&D(config)#line console 0
+sw4TR&D(config-line)#password cct2
+sw4TR&D(config-line)#login
+sw4TR&D(config-line)#loggin synchronous
+sw4TR&D(config-line)#exec-timeout 20
+sw4TR&D(config-line)#exit
+sw4TR&D(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw4TR&D(config)#line vty 0 4
+sw4TR&D(config-line)#password cct2
+sw4TR&D(config-line)#login
+sw4TR&D(config-line)#loggin synchronous
+sw4TR&D(config-line)#exec-timeout 20
+sw4TR&D(config-line)#exit
+sw4TR&D(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw4TR&D(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw4TR&D(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw4TR&D(config)#interface range f0/4-20
+sw4TR&D(config-if-range)#switchport mode access
+sw4TR&D(config-if-range)#switchport access vlan 20
+sw4TR&D(config-if-range)#exit
+
+sw4TR&D(config)#interface range f0/4-20
+sw4TR&D(config-if-range)#switchport voice vlan 5
+sw4TR&D(config-if-range)#exit
+
+***Port Security
+
+sw4TR&D(config)#interface range f0/4-20
+sw4TR&D(config-if-range)#switchport mode access	
+sw4TR&D(config-if-range)#switchport port-security
+sw4TR&D(config-if-range)#switchport port-security mac-address stick
+sw4TR&D(config-if-range)#switchport port-security maximum 5
+sw4TR&D(config-if-range)#switchport port-security violation shutdown
+sw4TR&D(config-if-range)#exit
+
+***Trunk port
+
+#sw4TR&D(config)#interface f0/2
+#sw4TR&D(config-if)#switchport mode trunk
+#sw4TR&D(config-if)#switchport trunk allowed vlan all
+#sw4TR&D(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw4TR&D(config)#interface vlan 100
+sw4TR&D(config-if)#ip address 192.168.100.10 255.255.255.0
+sw4TR&D(config-if)#ip default-gateway 192.168.100.1
+sw4TR&D(config)#interface vlan 100
+sw4TR&D(config-if)#no shutdown
+sw4TR&D(config-if)#exit
+sw4TR&D(config)#exit
+
+***Save config NVRAM
+
+sw4TR&D#copy running-config startup-config
+
+********************(sw2R&D)********************
+
+***Switch layer 2   (sw2R&D)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2R&D
+
+***Security, Enable Restricted Message.
+
+sw2R&D(config)#banner motd "STOP! sw2R&D Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw2R&D(config)#enable secret cct1
+
+***Security, Console
+
+sw2R&D(config)#line console 0
+sw2R&D(config-line)#password cct1
+sw2R&D(config-line)#login
+sw2R&D(config-line)#loggin synchronous
+sw2R&D(config-line)#exec-timeout 20
+sw2R&D(config-line)#exit
+sw2R&D(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw2R&D(config)#line vty 0 4
+sw2R&D(config-line)#password cct1
+sw2R&D(config-line)#login
+sw2R&D(config-line)#loggin synchronous
+sw2R&D(config-line)#exec-timeout 20
+sw2R&D(config-line)#exit
+sw2R&D(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw2R&D(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw2R&D(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw2R&D(config)#interface range f0/4-20
+sw2R&D(config-if-range)#switchport mode access
+sw2R&D(config-if-range)#switchport access vlan 30
+sw2R&D(config-if-range)#exit
+
+sw2R&D(config)#interface range f0/4-20
+sw2R&D(config-if-range)#switchport voice vlan 5
+sw2R&D(config-if-range)#exit
+
+***Port Security
+
+sw2R&D(config)#interface range f0/4-20
+sw2R&D(config-if-range)#switchport mode access	
+sw2R&D(config-if-range)#switchport port-security
+sw2R&D(config-if-range)#switchport port-security mac-address stick
+sw2R&D(config-if-range)#switchport port-security maximum 10
+sw2R&D(config-if-range)#switchport port-security violation shutdown
+sw2R&D(config-if-range)#exit
+
+***Access, Trunk port
+
+sw2R&D(config)#interface f0/3
+sw2R&D(config-if)#switchport mode trunk
+sw2R&D(config-if)#switchport trunk allowed vlan all
+sw2R&D(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw2R&D(config)#interface vlan 100
+sw2R&D(config-if)#ip address 192.168.100.7 255.255.255.0
+sw2R&D(config-if)#ip default-gateway 192.168.100.1
+sw2R&D(config)#interface vlan 100
+sw2R&D(config-if)#no shutdown
+sw2R&D(config-if)#exit
+sw2R&D(config)#exit
+
+***Save config NVRAM
+
+sw2R&D#copy running-config startup-config
+
+********************(sw2TR&D30)********************
+
+***Switch layer 2   (sw2TR&D30) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2TR&D30
+
+***Security, Enable Restricted Message.
+
+sw2TR&D30(config)#banner motd "STOP! sw2TR&D30 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw2TR&D30(config)#enable secret cct2
+
+***Security, Console
+
+sw2TR&D30(config)#line console 0
+sw2TR&D30(config-line)#password cct2
+sw2TR&D30(config-line)#login
+sw2TR&D30(config-line)#loggin synchronous
+sw2TR&D30(config-line)#exec-timeout 20
+sw2TR&D30(config-line)#exit
+sw2TR&D30(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw2TR&D30(config)#line vty 0 4
+sw2TR&D30(config-line)#password cct2
+sw2TR&D30(config-line)#login
+sw2TR&D30(config-line)#loggin synchronous
+sw2TR&D30(config-line)#exec-timeout 20
+sw2TR&D30(config-line)#exit
+sw2TR&D30(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw2TR&D30(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw2TR&D30(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw2TR&D30(config)#interface range f0/4-20
+sw2TR&D30(config-if-range)#switchport mode access
+sw2TR&D30(config-if-range)#switchport access vlan 30
+sw2TR&D30(config-if-range)#exit
+
+sw2TR&D30(config)#interface range f0/4-20
+sw2TR&D30(config-if-range)#switchport voice vlan 5
+sw2TR&D30(config-if-range)#exit
+
+***Port Security
+
+sw2TR&D30(config)#interface range f0/4-20
+sw2TR&D30(config-if-range)#switchport mode access	
+sw2TR&D30(config-if-range)#switchport port-security
+sw2TR&D30(config-if-range)#switchport port-security mac-address stick
+sw2TR&D30(config-if-range)#switchport port-security maximum 5
+sw2TR&D30(config-if-range)#switchport port-security violation shutdown
+sw2TR&D30(config-if-range)#exit
+
+***Trunk port
+
+sw2TR&D30(config)#interface f0/2
+sw2TR&D30(config-if)#switchport mode trunk
+sw2TR&D30(config-if)#switchport trunk allowed vlan all
+sw2TR&D30(config-if)#exit
+
+sw2TR&D30(config)#interface f0/3
+sw2TR&D30(config-if)#switchport mode trunk
+sw2TR&D30(config-if)#switchport trunk allowed vlan all
+sw2TR&D30(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw2TR&D30(config)#interface vlan 100
+sw2TR&D30(config-if)#ip address 192.168.100.11 255.255.255.0
+sw2TR&D30(config-if)#ip default-gateway 192.168.100.1
+sw2TR&D30(config)#interface vlan 100
+sw2TR&D30(config-if)#no shutdown
+sw2TR&D30(config-if)#exit
+sw2TR&D30(config)#exit
+
+***Save config NVRAM
+
+sw2TR&D30#copy running-config startup-config
+
+********************(sw3TR&D30)********************
+
+***Switch layer 2   (sw3TR&D30) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw3TR&D30
+
+***Security, Enable Restricted Message.
+
+sw3TR&D30(config)#banner motd "STOP! sw3TR&D30 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw3TR&D30(config)#enable secret cct2
+
+***Security, Console
+
+sw3TR&D30(config)#line console 0
+sw3TR&D30(config-line)#password cct2
+sw3TR&D30(config-line)#login
+sw3TR&D30(config-line)#loggin synchronous
+sw3TR&D30(config-line)#exec-timeout 20
+sw3TR&D30(config-line)#exit
+sw3TR&D30(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw3TR&D30(config)#line vty 0 4
+sw3TR&D30(config-line)#password cct2
+sw3TR&D30(config-line)#login
+sw3TR&D30(config-line)#loggin synchronous
+sw3TR&D30(config-line)#exec-timeout 20
+sw3TR&D30(config-line)#exit
+sw3TR&D30(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw3TR&D30(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw3TR&D30(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw3TR&D30(config)#interface range f0/4-20
+sw3TR&D30(config-if-range)#switchport mode access
+sw3TR&D30(config-if-range)#switchport access vlan 30
+sw3TR&D30(config-if-range)#exit
+
+sw3TR&D30(config)#interface range f0/4-20
+sw3TR&D30(config-if-range)#switchport voice vlan 5
+sw3TR&D30(config-if-range)#exit
+
+***Port Security
+
+sw3TR&D30(config)#interface range f0/4-20
+sw3TR&D30(config-if-range)#switchport mode access	
+sw3TR&D30(config-if-range)#switchport port-security
+sw3TR&D30(config-if-range)#switchport port-security mac-address stick
+sw3TR&D30(config-if-range)#switchport port-security maximum 5
+sw3TR&D30(config-if-range)#switchport port-security violation shutdown
+sw3TR&D30(config-if-range)#exit
+
+***Trunk port
+
+#sw3TR&D30(config)#interface f0/2
+#sw3TR&D30(config-if)#switchport mode trunk
+#sw3TR&D30(config-if)#switchport trunk allowed vlan all
+#sw3TR&D30(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw3TR&D30(config)#interface vlan 100
+sw3TR&D30(config-if)#ip address 192.168.100.12 255.255.255.0
+sw3TR&D30(config-if)#ip default-gateway 192.168.100.1
+sw3TR&D30(config)#interface vlan 100
+sw3TR&D30(config-if)#no shutdown
+sw3TR&D30(config-if)#exit
+sw3TR&D30(config)#exit
+
+***Save config NVRAM
+
+sw3TR&D30#copy running-config startup-config
+
+********************(sw4TR&D30)********************
+
+Switch layer 2   (sw4TR&D30) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw4TR&D30
+
+***Security, Enable Restricted Message.
+
+sw4TR&D30(config)#banner motd "STOP! sw4TR&D30 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw4TR&D30(config)#enable secret cct2
+
+***Security, Console
+
+sw4TR&D30(config)#line console 0
+sw4TR&D30(config-line)#password cct2
+sw4TR&D30(config-line)#login
+sw4TR&D30(config-line)#loggin synchronous
+sw4TR&D30(config-line)#exec-timeout 20
+sw4TR&D30(config-line)#exit
+sw4TR&D30(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw4TR&D30(config)#line vty 0 4
+sw4TR&D30(config-line)#password cct2
+sw4TR&D30(config-line)#login
+sw4TR&D30(config-line)#loggin synchronous
+sw4TR&D30(config-line)#exec-timeout 20
+sw4TR&D30(config-line)#exit
+sw4TR&D30(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw4TR&D30(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw4TR&D30(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw4TR&D30(config)#interface range f0/4-20
+sw4TR&D30(config-if-range)#switchport mode access
+sw4TR&D30(config-if-range)#switchport access vlan 30
+sw4TR&D30(config-if-range)#exit
+
+sw4TR&D30(config)#interface range f0/4-20
+sw4TR&D30(config-if-range)#switchport voice vlan 5
+sw4TR&D30(config-if-range)#exit
+
+***Port Security
+
+sw4TR&D30(config)#interface range f0/4-20
+sw4TR&D30(config-if-range)#switchport mode access	
+sw4TR&D30(config-if-range)#switchport port-security
+sw4TR&D30(config-if-range)#switchport port-security mac-address stick
+sw4TR&D30(config-if-range)#switchport port-security maximum 5
+sw4TR&D30(config-if-range)#switchport port-security violation shutdown
+sw4TR&D30(config-if-range)#exit
+
+***Access, Trunk port
+
+#sw4TR&D30(config)#interface f0/2
+#sw4TR&D30(config-if)#switchport mode trunk
+#sw4TR&D30(config-if)#switchport trunk allowed vlan all
+#sw4TR&D30(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw4TR&D30(config)#interface vlan 100
+sw4TR&D30(config-if)#ip address 192.168.100.13 255.255.255.0
+sw4TR&D30(config-if)#ip default-gateway 192.168.100.1
+sw4TR&D30(config)#interface vlan 100
+sw4TR&D30(config-if)#no shutdown
+sw4TR&D30(config-if)#exit
+sw4TR&D30(config)#exit
+
+***Save config NVRAM
+
+sw4TR&D30#copy running-config startup-config
+
+********************(sw1Manufac40)********************
+
+***Manufacturing switches layer 2
+
+Switch layer 2   (sw1Manufac40)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw1Manufac40
+
+***Security, Enable Restricted Message.
+
+sw1Manufac40(config)#banner motd "STOP! sw1Manufac40 Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw1Manufac40(config)#enable secret cct1
+
+***Security, Console
+
+sw1Manufac40(config)#line console 0
+sw1Manufac40(config-line)#password cct1
+sw1Manufac40(config-line)#login
+sw1Manufac40(config-line)#loggin synchronous
+sw1Manufac40(config-line)#exec-timeout 20
+sw1Manufac40(config-line)#exit
+sw1Manufac40(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw1Manufac40(config)#line vty 0 4
+sw1Manufac40(config-line)#password cct1
+sw1Manufac40(config-line)#login
+sw1Manufac40(config-line)#loggin synchronous
+sw1Manufac40(config-line)#exec-timeout 20
+sw1Manufac40(config-line)#exit
+sw1Manufac40(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw1Manufac40(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw1Manufac40(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw1Manufac40(config)#interface range f0/4-20
+sw1Manufac40(config-if-range)#switchport mode access
+sw1Manufac40(config-if-range)#switchport access vlan 40
+sw1Manufac40(config-if-range)#exit
+
+sw1Manufac40(config)#interface range f0/4-20
+sw1Manufac40(config-if-range)#switchport voice vlan 5
+sw1Manufac40(config-if-range)#exit
+
+***Port Security
+
+sw1Manufac40(config)#interface range f0/4-20
+sw1Manufac40(config-if-range)#switchport mode access	
+sw1Manufac40(config-if-range)#switchport port-security
+sw1Manufac40(config-if-range)#switchport port-security mac-address stick
+sw1Manufac40(config-if-range)#switchport port-security maximum 10
+sw1Manufac40(config-if-range)#switchport port-security violation shutdown
+sw1Manufac40(config-if-range)#exit
+
+***Access, Trunk port
+
+sw1Manufac40(config)#interface f0/3
+sw1Manufac40(config-if)#switchport mode trunk
+sw1Manufac40(config-if)#switchport trunk allowed vlan all
+sw1Manufac40(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw1Manufac40(config)#interface vlan 100
+sw1Manufac40(config-if)#ip address 192.168.100.14 255.255.255.0
+sw1Manufac40(config-if)#ip default-gateway 192.168.100.1
+sw1Manufac40(config)#interface vlan 100
+sw1Manufac40(config-if)#no shutdown
+sw1Manufac40(config-if)#exit
+sw1Manufac40(config)#exit
+
+***Save config NVRAM
+
+sw1Manufac40#copy running-config startup-config
+
+********************(sw2Manufac50)********************
+
+***Switch layer 2   (sw2Manufac50) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2Manufac50
+
+***Security, Enable Restricted Message.
+
+sw2Manufac50(config)#banner motd "STOP! sw2Manufac50 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw2Manufac50(config)#enable secret cct1
+
+***Security, Console
+
+sw2Manufac50(config)#line console 0
+sw2Manufac50(config-line)#password cct1
+sw2Manufac50(config-line)#login
+sw2Manufac50(config-line)#loggin synchronous
+sw2Manufac50(config-line)#exec-timeout 20
+sw2Manufac50(config-line)#exit
+sw2Manufac50(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw2Manufac50(config)#line vty 0 4
+sw2Manufac50(config-line)#password cct1
+sw2Manufac50(config-line)#login
+sw2Manufac50(config-line)#loggin synchronous
+sw2Manufac50(config-line)#exec-timeout 20
+sw2Manufac50(config-line)#exit
+sw2Manufac50(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw2Manufac50(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw2Manufac50(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw2Manufac50(config)#interface range f0/4-20
+sw2Manufac50(config-if-range)#switchport mode access
+sw2Manufac50(config-if-range)#switchport access vlan 50
+sw2Manufac50(config-if-range)#exit
+
+sw2Manufac50(config)#interface range f0/4-20
+sw2Manufac50(config-if-range)#switchport voice vlan 5
+sw2Manufac50(config-if-range)#exit
+
+***Port Security
+
+sw2Manufac50(config)#interface range f0/4-20
+sw2Manufac50(config-if-range)#switchport mode access	
+sw2Manufac50(config-if-range)#switchport port-security
+sw2Manufac50(config-if-range)#switchport port-security mac-address stick
+sw2Manufac50(config-if-range)#switchport port-security maximum 10
+sw2Manufac50(config-if-range)#switchport port-security violation shutdown
+sw2Manufac50(config-if-range)#exit
+
+***Trunk port
+
+sw2Manufac50(config)#interface f0/3
+sw2Manufac50(config-if)#switchport mode trunk
+sw2Manufac50(config-if)#switchport trunk allowed vlan all
+sw2Manufac50(config-if)#exit
+
+sw3TManufac40(config)#interface range f0/4-20
+sw3TManufac40(config-if-range)#switchport voice vlan 5
+sw3TManufac40(config-if-range)#exit
+
+***Remote access VLAN ADMIN
+
+sw2Manufac50(config)#interface vlan 100
+sw2Manufac50(config-if)#ip address 192.168.100.15 255.255.255.0
+sw2Manufac50(config-if)#ip default-gateway 192.168.100.1
+sw2Manufac50(config)#interface vlan 100
+sw2Manufac50(config-if)#no shutdown
+sw2Manufac50(config-if)#exit
+sw2Manufac50(config)#exit
+
+***Save config NVRAM
+
+sw2Manufac50#copy running-config startup-config
+
+********************(sw3Manufac60)********************
+
+***Switch layer 2   (sw3Manufac60)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw3Manufac60
+
+***Security, Enable Restricted Message.
+
+sw3Manufac60(config)#banner motd "STOP! sw3Manufac60 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw3Manufac60(config)#enable secret cct1
+
+***Security, Console
+
+sw3Manufac60(config)#line console 0
+sw3Manufac60(config-line)#password cct1
+sw3Manufac60(config-line)#login
+sw3Manufac60(config-line)#loggin synchronous
+sw3Manufac60(config-line)#exec-timeout 20
+sw3Manufac60(config-line)#exit
+sw3Manufac60(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw3Manufac60(config)#line vty 0 4
+sw3Manufac60(config-line)#password cct1
+sw3Manufac60(config-line)#login
+sw3Manufac60(config-line)#loggin synchronous
+sw3Manufac60(config-line)#exec-timeout 20
+sw3Manufac60(config-line)#exit
+sw3Manufac60(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw3Manufac60(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw3Manufac60(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw3Manufac60(config)#interface range f0/4-20
+sw3Manufac60(config-if-range)#switchport mode access
+sw3Manufac60(config-if-range)#switchport access vlan 60
+sw3Manufac60(config-if-range)#exit
+
+sw3Manufac60(config)#interface range f0/4-20
+sw3Manufac60(config-if-range)#switchport voice vlan 5
+sw3Manufac60(config-if-range)#exit
+
+***Port Security
+
+sw3Manufac60(config)#interface range f0/4-20
+sw3Manufac60(config-if-range)#switchport mode access	
+sw3Manufac60(config-if-range)#switchport port-security
+sw3Manufac60(config-if-range)#switchport port-security mac-address stick
+sw3Manufac60(config-if-range)#switchport port-security maximum 10
+sw3Manufac60(config-if-range)#switchport port-security violation shutdown
+sw3Manufac60(config-if-range)#exit
+
+***Trunk port
+
+sw3Manufac60(config)#interface f0/3
+sw3Manufac60(config-if)#switchport mode trunk
+sw3Manufac60(config-if)#switchport trunk allowed vlan all
+sw3Manufac60(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw3Manufac60(config)#interface vlan 100
+sw3Manufac60(config-if)#ip address 192.168.100.16 255.255.255.0
+sw3Manufac60(config-if)#ip default-gateway 192.168.100.1
+sw3Manufac60(config)#interface vlan 100
+sw3Manufac60(config-if)#no shutdown
+sw3Manufac60(config-if)#exit
+sw3Manufac60(config)#exit
+
+***Save config NVRAM
+
+sw3Manufac60#copy running-config startup-config
+
+********************(sw1TManufac40)********************
+
+***Switch layer 2   (sw1TManufac40) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw1TManufac40
+
+***Security, Enable Restricted Message.
+
+sw1TManufac40(config)#banner motd "STOP! sw1TManufac40 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw1TManufac40(config)#enable secret cct2
+
+***Security, Console
+
+sw1TManufac40(config)#line console 0
+sw1TManufac40(config-line)#password cct2
+sw1TManufac40(config-line)#login
+sw1TManufac40(config-line)#loggin synchronous
+sw1TManufac40(config-line)#exec-timeout 20
+sw1TManufac40(config-line)#exit
+sw1TManufac40(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw1TManufac40(config)#line vty 0 4
+sw1TManufac40(config-line)#password cct2
+sw1TManufac40(config-line)#login
+sw1TManufac40(config-line)#loggin synchronous
+sw1TManufac40(config-line)#exec-timeout 20
+sw1TManufac40(config-line)#exit
+sw1TManufac40(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw1TManufac40(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw1TManufac40(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw1TManufac40(config)#interface range f0/4-20
+sw1TManufac40(config-if-range)#switchport mode access
+sw1TManufac40(config-if-range)#switchport access vlan 40
+sw1TManufac40(config-if-range)#exit
+
+sw1TManufac40(config)#interface range f0/4-20
+sw1TManufac40(config-if-range)#switchport voice vlan 5
+sw1TManufac40(config-if-range)#exit
+
+***Port Security
+
+sw1TManufac40(config)#interface range f0/4-20
+sw1TManufac40(config-if-range)#switchport mode access	
+sw1TManufac40(config-if-range)#switchport port-security
+sw1TManufac40(config-if-range)#switchport port-security mac-address stick
+sw1TManufac40(config-if-range)#switchport port-security maximum 5
+sw1TManufac40(config-if-range)#switchport port-security violation shutdown
+sw1TManufac40(config-if-range)#exit
+
+***Trunk port
+
+sw1TManufac40(config)#interface f0/2
+sw1TManufac40(config-if)#switchport mode trunk
+sw1TManufac40(config-if)#switchport trunk allowed vlan all
+sw1TManufac40(config-if)#exit
+
+sw1TManufac40(config)#interface f0/3
+sw1TManufac40(config-if)#switchport mode trunk
+sw1TManufac40(config-if)#switchport trunk allowed vlan all
+sw1TManufac40(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw1TManufac40(config)#interface vlan 100
+sw1TManufac40(config-if)#ip address 192.168.100.17 255.255.255.0
+sw1TManufac40(config-if)#ip default-gateway 192.168.100.1
+sw1TManufac40(config)#interface vlan 100
+sw1TManufac40(config-if)#no shutdown
+sw1TManufac40(config-if)#exit
+sw1TManufac40(config)#exit
+
+***Save config NVRAM
+
+sw1TManufac40#copy running-config startup-config
+
+********************(sw2TManufac40)********************
+
+***Switch layer 2   (sw2TManufac40)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2TManufac40
+
+***Security, Enable Restricted Message.
+
+sw2TManufac40(config)#banner motd "STOP! sw2TManufac40 Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw2TManufac40(config)#enable secret cct2
+
+***Security, Console
+
+sw2TManufac40(config)#line console 0
+sw2TManufac40(config-line)#password cct2
+sw2TManufac40(config-line)#login
+sw2TManufac40(config-line)#loggin synchronous
+sw2TManufac40(config-line)#exec-timeout 20
+sw2TManufac40(config-line)#exit
+sw2TManufac40(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw2TManufac40(config)#line vty 0 4
+sw2TManufac40(config-line)#password cct2
+sw2TManufac40(config-line)#login
+sw2TManufac40(config-line)#loggin synchronous
+sw2TManufac40(config-line)#exec-timeout 20
+sw2TManufac40(config-line)#exit
+sw2TManufac40(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw2TManufac40(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw2TManufac40(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw2TManufac40(config)#interface range f0/4-20
+sw2TManufac40(config-if-range)#switchport mode access
+sw2TManufac40(config-if-range)#switchport access vlan 40
+sw2TManufac40(config-if-range)#exit
+
+sw2TManufac40(config)#interface range f0/4-20
+sw2TManufac40(config-if-range)#switchport voice vlan 5
+sw2TManufac40(config-if-range)#exit
+
+***Port Security
+
+sw2TManufac40(config)#interface range f0/4-20
+sw2TManufac40(config-if-range)#switchport mode access	
+sw2TManufac40(config-if-range)#switchport port-security
+sw2TManufac40(config-if-range)#switchport port-security mac-address stick
+sw2TManufac40(config-if-range)#switchport port-security maximum 5
+sw2TManufac40(config-if-range)#switchport port-security violation shutdown
+sw2TManufac40(config-if-range)#exit
+
+***Access, Trunk port
+
+#sw2TManufac40(config)#interface f0/3
+#sw2TManufac40(config-if)#switchport mode trunk
+#sw2TManufac40(config-if)#switchport trunk allowed vlan all
+#sw2TManufac40(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw2TManufac40(config)#interface vlan 100
+sw2TManufac40(config-if)#ip address 192.168.100.18 255.255.255.0
+sw2TManufac40(config-if)#ip default-gateway 192.168.100.1
+sw2TManufac40(config)#interface vlan 100
+sw2TManufac40(config-if)#no shutdown
+sw2TManufac40(config-if)#exit
+sw2TManufac40(config)#exit
+
+***Save config NVRAM
+
+sw2TManufac40#copy running-config startup-config
+
+********************(sw3TManufac40)********************
+
+***Switch layer 2   (sw3TManufac40) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw3TManufac40
+
+***Security, Enable Restricted Message.
+
+sw3TManufac40(config)#banner motd "STOP! sw3TManufac40 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw3TManufac40(config)#enable secret cct2
+
+***Security, Console
+
+sw3TManufac40(config)#line console 0
+sw3TManufac40(config-line)#password cct2
+sw3TManufac40(config-line)#login
+sw3TManufac40(config-line)#loggin synchronous
+sw3TManufac40(config-line)#exec-timeout 20
+sw3TManufac40(config-line)#exit
+sw3TManufac40(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw3TManufac40(config)#line vty 0 4
+sw3TManufac40(config-line)#password cct2
+sw3TManufac40(config-line)#login
+sw3TManufac40(config-line)#loggin synchronous
+sw3TManufac40(config-line)#exec-timeout 20
+sw3TManufac40(config-line)#exit
+sw3TManufac40(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw3TManufac40(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw3TManufac40(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw3TManufac40(config)#interface range f0/4-20
+sw3TManufac40(config-if-range)#switchport mode access
+sw3TManufac40(config-if-range)#switchport access vlan 40
+sw3TManufac40(config-if-range)#exit
+
+sw3TManufac40(config)#interface range f0/4-20
+sw3TManufac40(config-if-range)#switchport voice vlan 5
+sw3TManufac40(config-if-range)#exit
+
+***Port Security
+
+sw3TManufac40(config)#interface range f0/4-20
+sw3TManufac40(config-if-range)#switchport mode access	
+sw3TManufac40(config-if-range)#switchport port-security
+sw3TManufac40(config-if-range)#switchport port-security mac-address stick
+sw3TManufac40(config-if-range)#switchport port-security maximum 5
+sw3TManufac40(config-if-range)#switchport port-security violation shutdown
+sw3TManufac40(config-if-range)#exit
+
+***Trunk port
+
+#sw3TManufac40(config)#interface f0/2
+#sw3TManufac40(config-if)#switchport mode trunk
+#sw3TManufac40(config-if)#switchport trunk allowed vlan all
+#sw3TManufac40(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw3TManufac40(config)#interface vlan 100
+sw3TManufac40(config-if)#ip address 192.168.100.19 255.255.255.0
+sw3TManufac40(config-if)#ip default-gateway 192.168.100.1
+sw3TManufac40(config)#interface vlan 100
+sw3TManufac40(config-if)#no shutdown
+sw3TManufac40(config-if)#exit
+sw3TManufac40(config)#exit
+
+***Save config NVRAM
+
+sw3TManufac40#copy running-config startup-config
+
+********************(sw1TManufac50)********************
+
+***Switch layer 2   (sw1TManufac50) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw1TManufac50
+
+***Security, Enable Restricted Message.
+
+sw1TManufac50(config)#banner motd "STOP! sw1TManufac50 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw1TManufac50(config)#enable secret cct2
+
+***Security, Console
+
+sw1TManufac50(config)#line console 0
+sw1TManufac50(config-line)#password cct2
+sw1TManufac50(config-line)#login
+sw1TManufac50(config-line)#loggin synchronous
+sw1TManufac50(config-line)#exec-timeout 20
+sw1TManufac50(config-line)#exit
+sw1TManufac50(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw1TManufac50(config)#line vty 0 4
+sw1TManufac50(config-line)#password cct2
+sw1TManufac50(config-line)#login
+sw1TManufac50(config-line)#loggin synchronous
+sw1TManufac50(config-line)#exec-timeout 20
+sw1TManufac50(config-line)#exit
+sw1TManufac50(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw1TManufac50(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw1TManufac50(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw1TManufac50(config)#interface range f0/4-20
+sw1TManufac50(config-if-range)#switchport mode access
+sw1TManufac50(config-if-range)#switchport access vlan 50
+sw1TManufac50(config-if-range)#exit
+
+sw1TManufac50(config)#interface range f0/4-20
+sw1TManufac50(config-if-range)#switchport voice vlan 5
+sw1TManufac50(config-if-range)#exit
+
+***Port Security
+
+sw1TManufac50(config)#interface range f0/4-20
+sw1TManufac50(config-if-range)#switchport mode access	
+sw1TManufac50(config-if-range)#switchport port-security
+sw1TManufac50(config-if-range)#switchport port-security mac-address stick
+sw1TManufac50(config-if-range)#switchport port-security maximum 5
+sw1TManufac50(config-if-range)#switchport port-security violation shutdown
+sw1TManufac50(config-if-range)#exit
+
+***Trunk port
+
+sw1TManufac50(config)#interface f0/2
+sw1TManufac50(config-if)#switchport mode trunk
+sw1TManufac50(config-if)#switchport trunk allowed vlan all
+sw1TManufac50(config-if)#exit
+
+sw1TManufac50(config)#interface f0/3
+sw1TManufac50(config-if)#switchport mode trunk
+sw1TManufac50(config-if)#switchport trunk allowed vlan all
+sw1TManufac50(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw1TManufac50(config)#interface vlan 100
+sw1TManufac50(config-if)#ip address 192.168.100.20 255.255.255.0
+sw1TManufac50(config-if)#ip default-gateway 192.168.100.1
+sw1TManufac50(config)#interface vlan 100
+sw1TManufac50(config-if)#no shutdown
+sw1TManufac50(config-if)#exit
+sw1TManufac50(config)#exit
+
+***Save config NVRAM
+
+sw1TManufac50#copy running-config startup-config
+
+********************(sw2TManufac50)********************
+
+***Switch layer 2   (sw2TManufac50)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2TManufac50
+
+***Security, Enable Restricted Message.
+
+sw2TManufac50(config)#banner motd "STOP! sw2TManufac50 Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw2TManufac50(config)#enable secret cct2
+
+***Security, Console
+
+sw2TManufac50(config)#line console 0
+sw2TManufac50(config-line)#password cct2
+sw2TManufac50(config-line)#login
+sw2TManufac50(config-line)#loggin synchronous
+sw2TManufac50(config-line)#exec-timeout 20
+sw2TManufac50(config-line)#exit
+sw2TManufac50(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw2TManufac50(config)#line vty 0 4
+sw2TManufac50(config-line)#password cct2
+sw2TManufac50(config-line)#login
+sw2TManufac50(config-line)#loggin synchronous
+sw2TManufac50(config-line)#exec-timeout 20
+sw2TManufac50(config-line)#exit
+sw2TManufac50(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw2TManufac50(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw2TManufac50(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw2TManufac50(config)#interface range f0/4-20
+sw2TManufac50(config-if-range)#switchport mode access
+sw2TManufac50(config-if-range)#switchport access vlan 50
+sw2TManufac50(config-if-range)#exit
+
+sw2TManufac50(config)#interface range f0/4-20
+sw2TManufac50(config-if-range)#switchport voice vlan 5
+sw2TManufac50(config-if-range)#exit
+
+***Port Security
+
+sw2TManufac50(config)#interface range f0/4-20
+sw2TManufac50(config-if-range)#switchport mode access	
+sw2TManufac50(config-if-range)#switchport port-security
+sw2TManufac50(config-if-range)#switchport port-security mac-address stick
+sw2TManufac50(config-if-range)#switchport port-security maximum 5
+sw2TManufac50(config-if-range)#switchport port-security violation shutdown
+sw2TManufac50(config-if-range)#exit
+
+***Trunk port
+
+#sw2TManufac50(config)#interface f0/3
+#sw2TManufac50(config-if)#switchport mode trunk
+#sw2TManufac50(config-if)#switchport trunk allowed vlan all
+#sw2TManufac50(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw2TManufac50(config)#interface vlan 100
+sw2TManufac50(config-if)#ip address 192.168.100.21 255.255.255.0
+sw2TManufac50(config-if)#ip default-gateway 192.168.100.1
+sw2TManufac50(config)#interface vlan 100
+sw2TManufac50(config-if)#no shutdown
+sw2TManufac50(config-if)#exit
+sw2TManufac50(config)#exit
+
+***Save config NVRAM
+
+sw2TManufac50#copy running-config startup-config
+
+********************(sw3TManufac50)********************
+
+Switch layer 2   (sw3TManufac50) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw3TManufac50
+
+***Security, Enable Restricted Message.
+
+sw3TManufac50(config)#banner motd "STOP! sw3TManufac50 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw3TManufac50(config)#enable secret cct2
+
+***Security, Console
+
+sw3TManufac50(config)#line console 0
+sw3TManufac50(config-line)#password cct2
+sw3TManufac50(config-line)#login
+sw3TManufac50(config-line)#loggin synchronous
+sw3TManufac50(config-line)#exec-timeout 20
+sw3TManufac50(config-line)#exit
+sw3TManufac50(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw3TManufac50(config)#line vty 0 4
+sw3TManufac50(config-line)#password cct2
+sw3TManufac50(config-line)#login
+sw3TManufac50(config-line)#loggin synchronous
+sw3TManufac50(config-line)#exec-timeout 20
+sw3TManufac50(config-line)#exit
+sw3TManufac50(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw3TManufac50(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw3TManufac50(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw3TManufac50(config)#interface range f0/4-20
+sw3TManufac50(config-if-range)#switchport mode access
+sw3TManufac50(config-if-range)#switchport access vlan 50
+sw3TManufac50(config-if-range)#exit
+
+sw3TManufac50(config)#interface range f0/4-20
+sw3TManufac50(config-if-range)#switchport voice vlan 5
+sw3TManufac50(config-if-range)#exit
+
+***Port Security
+
+sw3TManufac50(config)#interface range f0/4-20
+sw3TManufac50(config-if-range)#switchport mode access	
+sw3TManufac50(config-if-range)#switchport port-security
+sw3TManufac50(config-if-range)#switchport port-security mac-address stick
+sw3TManufac50(config-if-range)#switchport port-security maximum 5
+sw3TManufac50(config-if-range)#switchport port-security violation shutdown
+sw3TManufac50(config-if-range)#exit
+
+***Access, Trunk port
+
+#sw3TManufac50(config)#interface f0/2
+#sw3TManufac50(config-if)#switchport mode trunk
+#sw3TManufac50(config-if)#switchport trunk allowed vlan all
+#sw3TManufac50(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw3TManufac50(config)#interface vlan 100
+sw3TManufac50(config-if)#ip address 192.168.100.22 255.255.255.0
+sw3TManufac50(config-if)#ip default-gateway 192.168.100.1
+sw3TManufac50(config)#interface vlan 100
+sw3TManufac50(config-if)#no shutdown
+sw3TManufac50(config-if)#exit
+sw3TManufac50(config)#exit
+
+***Save config NVRAM
+
+sw3TManufac50#copy running-config startup-config
+
+********************(sw1TManufac60)********************
+
+Switch layer 2   (sw1TManufac60) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw1TManufac60
+
+***Security, Enable Restricted Message.
+
+sw1TManufac60(config)#banner motd "STOP! sw1TManufac60 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw1TManufac60(config)#enable secret cct2
+
+***Security, Console
+
+sw1TManufac60(config)#line console 0
+sw1TManufac60(config-line)#password cct2
+sw1TManufac60(config-line)#login
+sw1TManufac60(config-line)#loggin synchronous
+sw1TManufac60(config-line)#exec-timeout 20
+sw1TManufac60(config-line)#exit
+sw1TManufac60(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw1TManufac60(config)#line vty 0 4
+sw1TManufac60(config-line)#password cct2
+sw1TManufac60(config-line)#login
+sw1TManufac60(config-line)#loggin synchronous
+sw1TManufac60(config-line)#exec-timeout 20
+sw1TManufac60(config-line)#exit
+sw1TManufac60(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw1TManufac60(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw1TManufac60(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw1TManufac60(config)#interface range f0/4-20
+sw1TManufac60(config-if-range)#switchport mode access
+sw1TManufac60(config-if-range)#switchport access vlan 60
+sw1TManufac60(config-if-range)#exit
+
+sw1TManufac60(config)#interface range f0/4-20
+sw1TManufac60(config-if-range)#switchport voice vlan 5
+sw1TManufac60(config-if-range)#exit
+
+***Port Security
+
+sw1TManufac60(config)#interface range f0/4-20
+sw1TManufac60(config-if-range)#switchport mode access	
+sw1TManufac60(config-if-range)#switchport port-security
+sw1TManufac60(config-if-range)#switchport port-security mac-address stick
+sw1TManufac60(config-if-range)#switchport port-security maximum 5
+sw1TManufac60(config-if-range)#switchport port-security violation shutdown
+sw1TManufac60(config-if-range)#exit
+
+***Trunk port
+
+sw1TManufac60(config)#interface f0/2
+sw1TManufac60(config-if)#switchport mode trunk
+sw1TManufac60(config-if)#switchport trunk allowed vlan all
+sw1TManufac60(config-if)#exit
+
+sw1TManufac60(config)#interface f0/3
+sw1TManufac60(config-if)#switchport mode trunk
+sw1TManufac60(config-if)#switchport trunk allowed vlan all
+sw1TManufac60(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw1TManufac60(config)#interface vlan 100
+sw1TManufac60(config-if)#ip address 192.168.100.23 255.255.255.0
+sw1TManufac60(config-if)#ip default-gateway 192.168.100.1
+sw1TManufac60(config)#interface vlan 100
+sw1TManufac60(config-if)#no shutdown
+sw1TManufac60(config-if)#exit
+sw1TManufac60(config)#exit
+
+***Save config NVRAM
+
+sw1TManufac60#copy running-config startup-config
+
+********************(sw2TManufac60)********************
+
+Switch layer 2   (sw2TManufac60)
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2TManufac60
+
+***Security, Enable Restricted Message.
+
+sw2TManufac60(config)#banner motd "STOP! sw2TManufac60 Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw2TManufac60(config)#enable secret cct2
+
+***Security, Console
+
+sw2TManufac60(config)#line console 0
+sw2TManufac60(config-line)#password cct2
+sw2TManufac60(config-line)#login
+sw2TManufac60(config-line)#loggin synchronous
+sw2TManufac60(config-line)#exec-timeout 20
+sw2TManufac60(config-line)#exit
+sw2TManufac60(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw2TManufac60(config)#line vty 0 4
+sw2TManufac60(config-line)#password cct2
+sw2TManufac60(config-line)#login
+sw2TManufac60(config-line)#loggin synchronous
+sw2TManufac60(config-line)#exec-timeout 20
+sw2TManufac60(config-line)#exit
+sw2TManufac60(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw2TManufac60(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw2TManufac60(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw2TManufac60(config)#interface range f0/4-20
+sw2TManufac60(config-if-range)#switchport mode access
+sw2TManufac60(config-if-range)#switchport access vlan 60
+sw2TManufac60(config-if-range)#exit
+
+sw2TManufac60(config)#interface range f0/4-20
+sw2TManufac60(config-if-range)#switchport voice vlan 5
+sw2TManufac60(config-if-range)#exit
+
+***Port Security
+
+sw2TManufac60(config)#interface range f0/4-20
+sw2TManufac60(config-if-range)#switchport mode access	
+sw2TManufac60(config-if-range)#switchport port-security
+sw2TManufac60(config-if-range)#switchport port-security mac-address stick
+sw2TManufac60(config-if-range)#switchport port-security maximum 5
+sw2TManufac60(config-if-range)#switchport port-security violation shutdown
+sw2TManufac60(config-if-range)#exit
+
+***Trunk port
+
+#sw2TManufac60(config)#interface f0/3
+#sw2TManufac60(config-if)#switchport mode trunk
+#sw2TManufac60(config-if)#switchport trunk allowed vlan all
+#sw2TManufac60(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw2TManufac60(config)#interface vlan 100
+sw2TManufac60(config-if)#ip address 192.168.100.24 255.255.255.0
+sw2TManufac60(config-if)#ip default-gateway 192.168.100.1
+sw2TManufac60(config)#interface vlan 100
+sw2TManufac60(config-if)#no shutdown
+sw2TManufac60(config-if)#exit
+sw2TManufac60(config)#exit
+
+***Save config NVRAM
+
+sw2TManufac60#copy running-config startup-config
+
+********************(sw3TManufac60)********************
+
+Switch layer 2   (sw3TManufac60) Trunk
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw3TManufac60
+
+***Security, Enable Restricted Message.
+
+sw3TManufac60(config)#banner motd "STOP! sw3TManufac60 Trunk Restricted Area, Authorized Personnel Only."
+
+***Security, Enable secret password
+
+sw3TManufac60(config)#enable secret cct2
+
+***Security, Console
+
+sw3TManufac60(config)#line console 0
+sw3TManufac60(config-line)#password cct2
+sw3TManufac60(config-line)#login
+sw3TManufac60(config-line)#loggin synchronous
+sw3TManufac60(config-line)#exec-timeout 20
+sw3TManufac60(config-line)#exit
+sw3TManufac60(config)#service password-encryption
+
+***VTY Virtual teletype, Virtual port and used to get Telnet or SSH
+
+sw3TManufac60(config)#line vty 0 4
+sw3TManufac60(config-line)#password cct2
+sw3TManufac60(config-line)#login
+sw3TManufac60(config-line)#loggin synchronous
+sw3TManufac60(config-line)#exec-timeout 20
+sw3TManufac60(config-line)#exit
+sw3TManufac60(config)#service password-encryption
+
+***VLAN Trunk Protocol (VTP)
+
+sw3TManufac60(config)#vtp mode client
+	Setting device to VTP CLIENT mode.
+sw3TManufac60(config)#vtp domain dpl.ie
+	Domain name already set to dpl.ie.
+
+***Access, Ethernet ports
+
+sw3TManufac60(config)#interface range f0/4-20
+sw3TManufac60(config-if-range)#switchport mode access
+sw3TManufac60(config-if-range)#switchport access vlan 60
+sw3TManufac60(config-if-range)#exit
+
+sw3TManufac60(config)#interface range f0/4-20
+sw3TManufac60(config-if-range)#switchport voice vlan 5
+sw3TManufac60(config-if-range)#exit
+
+***Port Security
+
+sw3TManufac60(config)#interface range f0/4-20
+sw3TManufac60(config-if-range)#switchport mode access	
+sw3TManufac60(config-if-range)#switchport port-security
+sw3TManufac60(config-if-range)#switchport port-security mac-address stick
+sw3TManufac60(config-if-range)#switchport port-security maximum 5
+sw3TManufac60(config-if-range)#switchport port-security violation shutdown
+sw3TManufac60(config-if-range)#exit
+
+***Trunk port
+
+#sw3TManufac60(config)#interface f0/2
+#sw3TManufac60(config-if)#switchport mode trunk
+#sw3TManufac60(config-if)#switchport trunk allowed vlan all
+#sw3TManufac60(config-if)#exit
+
+***Remote access VLAN ADMIN
+
+sw3TManufac60(config)#interface vlan 100
+sw3TManufac60(config-if)#ip address 192.168.100.25 255.255.255.0
+sw3TManufac60(config-if)#ip default-gateway 192.168.100.1
+sw3TManufac60(config)#interface vlan 100
+sw3TManufac60(config-if)#no shutdown
+sw3TManufac60(config-if)#exit
+sw3TManufac60(config)#exit
+
+***Save config NVRAM
+
+sw3TManufac60#copy running-config startup-config
+
+****************************************
+
